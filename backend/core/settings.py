@@ -16,10 +16,7 @@ SECRET_KEY = "django-insecure-efdr4k(hnrv0&!&^-vn2vq%anddr0kn4u&(93_n5+g2wfy2(-@
 # DEBUG = os.environ.get("DEBUG", "0") == "1"
 DEBUG=True
 ALLOWED_HOSTS = [
-    # "gocode-r6aq.onrender.com",
-    # "localhost",
-    # "127.0.0.1",
-    "*",
+ "*"
 ]
 
 
