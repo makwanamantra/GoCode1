@@ -64,24 +64,24 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "core.wsgi.application"
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
-
-
 # DATABASES = {
-#     "default": dj_database_url.config(
-#         default=os.environ.get(
-#             "DATABASE_URL",
-#             "******dpg-d9ngki2jnfac73b21ma0-a/portfolio_xmqz",
-#         ),
-#         conn_max_age=600,
-#         conn_health_checks=True,
-#     )
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
 # }
+
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default=os.environ.get(
+            "DATABASE_URL",
+            "postgresql://neondb_owner:npg_Yw9AJxRU5IKV@ep-misty-cell-ayxj5ekl-pooler.c-5.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
+        ),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [
