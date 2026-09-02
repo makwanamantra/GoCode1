@@ -6,22 +6,22 @@ const STORAGE_KEY = 'codemantra.session.v1';
 /** Seeded real accounts (from backend `seed_data`) for quick autofill in UI. */
 export const DEMO_ACCOUNTS = [
   {
-    username: '',
-    password: '',
+    username: 'owner_admin',
+    password: 'admin123',
     role: 'OWNER',
     label: 'Owner / Admin',
     user: { id: 1, username: 'owner_admin', full_name: 'Nadia Okafor', email: 'owner@agency.com', profile: { role: 'OWNER', sub_role: 'NONE', company: 'Aura Studio Agency' } },
   },
   {
-    username: '',
-    password: '',
+    username: 'alex_dev',
+    password: 'emp123',
     role: 'EMPLOYEE',
     label: 'Developer / Employee',
     user: { id: 2, username: 'alex_dev', full_name: 'Alex Rivera', email: 'alex@agency.com', profile: { role: 'EMPLOYEE', sub_role: 'FRONTEND', company: 'Aura Studio' } },
   },
   {
-    username: '',
-    password: '',
+    username: 'john_client',
+    password: 'client123',
     role: 'CLIENT',
     label: 'Client',
     user: { id: 7, username: 'john_client', full_name: 'John Smith', email: 'john@acme.com', profile: { role: 'CLIENT', sub_role: 'NONE', company: 'Acme Global Corp' } },
