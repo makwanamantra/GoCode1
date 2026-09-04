@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: gocode-backend
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn core.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120"
+    healthCheckPath: /api/site-settings/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.6
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://gocode-frontend.onrender.com"
+      - key: CSRF_TRUSTED_ORIGINS
+        value: "https://gocode-frontend.onrender.com"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: gocode-db
+          property: connectionString
+
+  - type: web
+    name: gocode-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: "npm install --legacy-peer-deps && npm run build"
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE
+        value: "https://gocode-backend.onrender.com/api"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+databases:
+  - name: gocode-db
+    plan: free
