@@ -7,11 +7,8 @@ from django.contrib.auth import authenticate
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from django.utils import timezone
 from datetime import timedelta
-<<<<<<< HEAD
 from decimal import Decimal, InvalidOperation
-=======
-from decimal import Decimal
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
+
 
 from .models import (
     UserProfile, ProjectTemplate, CustomRequest, Project, Task,
@@ -243,7 +240,6 @@ class ProjectTemplateViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectTemplateSerializer
 
 
-<<<<<<< HEAD
 def _positive_decimal(raw):
     """Return a positive Decimal, or None when missing / invalid / <= 0."""
     if raw is None or raw == '':
@@ -282,18 +278,6 @@ class CustomRequestViewSet(viewsets.ModelViewSet):
         custom_req = self.get_object()
         predicted_date = request.data.get('predicted_date')
         action_type = request.data.get('action')  # 'OFFER', 'REJECT'
-=======
-class CustomRequestViewSet(viewsets.ModelViewSet):
-    queryset = CustomRequest.objects.all().order_by('-created_at')
-    serializer_class = CustomRequestSerializer
-
-    @action(detail=True, methods=['post'])
-    def admin_respond(self, request, pk=None):
-        custom_req = self.get_object()
-        proposed_price = request.data.get('proposed_price')
-        predicted_date = request.data.get('predicted_date')
-        action_type = request.data.get('action') # 'OFFER', 'REJECT'
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 
         if action_type == 'REJECT':
             custom_req.status = 'REJECTED'
@@ -301,16 +285,12 @@ class CustomRequestViewSet(viewsets.ModelViewSet):
             AuditLog.objects.create(action="Request Rejected", details=f"Admin rejected request '{custom_req.title}'")
             return Response({'status': 'Request rejected', 'request': CustomRequestSerializer(custom_req).data})
 
-<<<<<<< HEAD
         if custom_req.status in ('APPROVED', 'REJECTED'):
             return Response({'error': f'Request already {custom_req.status.lower()}.'}, status=400)
 
         proposed_price = _positive_decimal(request.data.get('proposed_price'))
 
         if proposed_price is not None and predicted_date:
-=======
-        if proposed_price and predicted_date:
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
             custom_req.admin_proposed_price = proposed_price
             custom_req.admin_predicted_date = predicted_date
             custom_req.status = 'ADMIN_OFFER'
@@ -321,11 +301,7 @@ class CustomRequestViewSet(viewsets.ModelViewSet):
                 details=f"Offered ${proposed_price} and target {predicted_date} for request '{custom_req.title}'"
             )
             return Response({'status': 'Offer sent to client', 'request': CustomRequestSerializer(custom_req).data})
-<<<<<<< HEAD
         return Response({'error': 'A positive proposed_price and a predicted_date are required'}, status=400)
-=======
-        return Response({'error': 'Missing price or date'}, status=400)
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 
     @action(detail=True, methods=['post'])
     def client_accept(self, request, pk=None):
@@ -356,7 +332,6 @@ class CustomRequestViewSet(viewsets.ModelViewSet):
             details=f"Project '{project.title}' initialized with 30% advance deposit requirement."
         )
 
-<<<<<<< HEAD
         # Carry the conversation started on the request over to the project so
         # the chat thread is not lost when the request becomes a project.
         ChatMessage.objects.filter(custom_request=custom_req, project__isnull=True).update(project=project)
@@ -365,21 +340,12 @@ class CustomRequestViewSet(viewsets.ModelViewSet):
             'status': 'Project initialized successfully',
             'project': ProjectSerializer(project).data,
             'request': CustomRequestSerializer(custom_req).data
-=======
-        return Response({
-            'status': 'Project initialized successfully',
-            'project': ProjectSerializer(project).data
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
         })
 
     @action(detail=True, methods=['post'])
     def edit_budget(self, request, pk=None):
         custom_req = self.get_object()
-<<<<<<< HEAD
         new_budget = _positive_decimal(request.data.get('new_budget'))
-=======
-        new_budget = request.data.get('new_budget')
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
         if new_budget:
             custom_req.user_budget = new_budget
             custom_req.save()
@@ -389,7 +355,6 @@ class CustomRequestViewSet(viewsets.ModelViewSet):
                 details=f"Updated budget to ${new_budget} for '{custom_req.title}'"
             )
             return Response({'status': 'Budget updated', 'request': CustomRequestSerializer(custom_req).data})
-<<<<<<< HEAD
         return Response({'error': 'Budget must be a number greater than zero'}, status=400)
 
 
@@ -416,18 +381,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
                  'project': ProjectSerializer(project).data},
                 status=400,
             )
-=======
-        return Response({'error': 'Invalid budget'}, status=400)
-
-
-class ProjectViewSet(viewsets.ModelViewSet):
-    queryset = Project.objects.all().order_by('-created_at')
-    serializer_class = ProjectSerializer
-
-    @action(detail=True, methods=['post'])
-    def pay_advance(self, request, pk=None):
-        project = self.get_object()
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
         project.advance_paid = True
         project.save()
 
@@ -509,7 +462,6 @@ class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all().order_by('-created_at')
     serializer_class = TaskSerializer
 
-<<<<<<< HEAD
     def get_queryset(self):
         qs = super().get_queryset()
         project = self.request.query_params.get('project')
@@ -532,8 +484,6 @@ class TaskViewSet(viewsets.ModelViewSet):
                     f"{getattr(task.assigned_employee, 'username', 'unassigned')}"
         )
 
-=======
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
     @action(detail=True, methods=['post'])
     def update_status(self, request, pk=None):
         task = self.get_object()
@@ -554,7 +504,6 @@ class DeliverableViewSet(viewsets.ModelViewSet):
     queryset = Deliverable.objects.all().order_by('-created_at')
     serializer_class = DeliverableSerializer
 
-<<<<<<< HEAD
     def get_queryset(self):
         qs = super().get_queryset()
         project = self.request.query_params.get('project')
@@ -612,13 +561,6 @@ class ChatMessageViewSet(viewsets.ModelViewSet):
                 role = getattr(getattr(sender, 'profile', None), 'role', '') or 'CLIENT'
         serializer.save(sender_name=name, sender_role=role or 'CLIENT')
 
-=======
-
-class ChatMessageViewSet(viewsets.ModelViewSet):
-    queryset = ChatMessage.objects.all().order_by('timestamp')
-    serializer_class = ChatMessageSerializer
-
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 
 class AuditLogViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = AuditLog.objects.all().order_by('-timestamp')

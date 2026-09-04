@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """End-to-end API tests for the agency workflow.
 
 Covers: auth (register/login/logout), custom requests, the admin offer ->
@@ -399,8 +398,3 @@ class TemplateAndAnalyticsTests(TestCase):
         self.assertEqual(res.status_code, 200)
         usernames = {u['username'] for u in res.json()}
         self.assertTrue({'owner1', 'cindy'}.issubset(usernames))
-=======
-from django.test import TestCase
-
-# Create your tests here.
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea

@@ -83,7 +83,7 @@ class CustomRequestSerializer(serializers.ModelSerializer):
         model = CustomRequest
         fields = '__all__'
 
-<<<<<<< HEAD
+
     def validate_title(self, value):
         if not value or not value.strip():
             raise serializers.ValidationError('Title is required.')
@@ -94,8 +94,7 @@ class CustomRequestSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Budget must be greater than zero.')
         return value
 
-=======
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
+
 
 class TaskSerializer(serializers.ModelSerializer):
     assigned_employee_name = serializers.CharField(source='assigned_employee.username', read_only=True)
@@ -124,7 +123,6 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 
 class ChatMessageSerializer(serializers.ModelSerializer):
-<<<<<<< HEAD
     """Chat messages belong to either a project or a custom request.
 
     `sender_name` / `sender_role` are denormalised snapshots: clients may omit
@@ -152,11 +150,6 @@ class ChatMessageSerializer(serializers.ModelSerializer):
                 'A chat message must reference either a project or a custom_request.'
             )
         return attrs
-=======
-    class Meta:
-        model = ChatMessage
-        fields = '__all__'
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 
 
 class PaymentSerializer(serializers.ModelSerializer):

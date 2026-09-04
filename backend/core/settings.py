@@ -1,12 +1,9 @@
 """
 Django settings for core project.
-<<<<<<< HEAD
 
 Everything that differs between local development and a hosted deployment
 (Render, Railway, Fly, ...) is read from environment variables so the same
 code can be deployed without editing this file.
-=======
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 """
 
 from pathlib import Path
@@ -18,7 +15,6 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-<<<<<<< HEAD
 def env_bool(name, default="0"):
     return os.environ.get(name, default).strip().lower() in ("1", "true", "yes", "on")
 
@@ -45,15 +41,6 @@ if render_host and render_host not in ALLOWED_HOSTS and "*" not in ALLOWED_HOSTS
 CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS")
 if render_host:
     CSRF_TRUSTED_ORIGINS.append(f"https://{render_host}")
-=======
-SECRET_KEY = "django-insecure-efdr4k(hnrv0&!&^-vn2vq%anddr0kn4u&(93_n5+g2wfy2(-@"
-
-# DEBUG = os.environ.get("DEBUG", "0") == "1"
-DEBUG=True
-ALLOWED_HOSTS = [
- "*"
-]
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 
 
 INSTALLED_APPS = [
@@ -101,32 +88,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "core.wsgi.application"
-<<<<<<< HEAD
 
 
 # --- Database ---------------------------------------------------------------
 # Set DATABASE_URL on the host (Render Postgres, Neon, ...). Falls back to a
 # local SQLite file so tests and local dev work with zero configuration.
 
-=======
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 DATABASES = {
     "default": dj_database_url.config(
         default=os.environ.get(
             "DATABASE_URL",
-<<<<<<< HEAD
             "******dpg-d9ngki2jnfac73b21ma0-a/portfolio_xmqz",
-=======
-            "postgresql://neondb_owner:npg_Yw9AJxRU5IKV@ep-misty-cell-ayxj5ekl-pooler.c-5.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
         ),
         conn_max_age=600,
         conn_health_checks=True,
@@ -134,28 +106,12 @@ DATABASES = {
 }
 
 
-<<<<<<< HEAD
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
-=======
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 ]
 
 LANGUAGE_CODE = "en-us"
@@ -182,26 +138,17 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
 
 
-<<<<<<< HEAD
 # --- Email ------------------------------------------------------------------
-=======
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "")
 EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
-<<<<<<< HEAD
 EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", "1")
 EMAIL_TIMEOUT = int(os.environ.get("EMAIL_TIMEOUT", "5"))
 DEFAULT_FROM_EMAIL = os.environ.get(
     "DEFAULT_FROM_EMAIL", "codemantra <no-reply@codemantra.dev>"
 )
 ADMIN_ALERT_EMAIL = os.environ.get("ADMIN_ALERT_EMAIL", "")
-=======
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "1") == "1"
-EMAIL_TIMEOUT = int(os.environ.get("EMAIL_TIMEOUT", "5"))
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "codemantra <no-reply@codemantra.dev>")
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 EMAIL_BACKEND = (
     "django.core.mail.backends.smtp.EmailBackend"
     if EMAIL_HOST and EMAIL_HOST_USER
@@ -209,7 +156,6 @@ EMAIL_BACKEND = (
 )
 
 STORAGES = {
-<<<<<<< HEAD
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
@@ -226,9 +172,3 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
-=======
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea

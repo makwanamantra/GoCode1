@@ -11,11 +11,7 @@ import ChatModal from './components/ChatModal';
 import CustomRequestModal from './components/CustomRequestModal';
 import AddTemplateModal from './components/AddTemplateModal';
 
-<<<<<<< HEAD
 import { fetchFromAPI, apiPost, apiPatch, apiGet, apiPostStrict, asList } from './services/apiService';
-=======
-import { fetchFromAPI, apiPostStrict } from './services/apiService';
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 import { useVisitorTracking } from './hooks/useVisitorTracking';
 import { BRAND } from './config/brand';
 
@@ -55,12 +51,8 @@ function AppShell() {
 
   // Active Modals
   const [activeVideoItem, setActiveVideoItem] = useState(null);
-<<<<<<< HEAD
   const [activeChatThread, setActiveChatThread] = useState(null); // { id, title, kind: 'project'|'request' }
   const [employees, setEmployees] = useState([]);
-=======
-  const [activeChatProjectTitle, setActiveChatProjectTitle] = useState(null);
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
   const [isCustomRequestOpen, setIsCustomRequestOpen] = useState(false);
   const [isAddTemplateOpen, setIsAddTemplateOpen] = useState(false);
 
@@ -216,17 +208,10 @@ function AppShell() {
         });
       }
 
-<<<<<<< HEAD
       const usersRes = asList(await apiGet('users/'));
       if (usersRes) {
         setEmployees(usersRes.filter(u => (u.profile?.role || u.role) === 'EMPLOYEE'));
       }
-=======
-      setChatMessages([
-        { sender_name: 'Admin (Aura Studio)', sender_role: 'OWNER', message: 'Welcome Lisa! We assigned Sarah (Backend) and Alex (Frontend) to your project.' },
-        { sender_name: 'Lisa Ray', sender_role: 'CLIENT', message: 'Thanks Admin! Looking forward to seeing the 3D WebGL particle node renders.' }
-      ]);
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 
       setAuditLogs([
         { action: 'System Seeded', details: 'Pre-populated 50+ templates & sample projects.', timestamp: new Date().toISOString() },
@@ -238,7 +223,6 @@ function AppShell() {
   }, []);
 
   // Handlers
-<<<<<<< HEAD
   const handleOrderTemplate = async (template) => {
     const price = parseFloat(template.price) || 0;
     const draft = {
@@ -253,20 +237,6 @@ function AppShell() {
     const created = user?.id ? await apiPost('projects/', draft) : null;
     setProjects(prev => [created?.id ? created : { ...draft, id: Date.now() }, ...prev]);
     if (isAuthenticated) setActiveView('client');
-=======
-  const handleOrderTemplate = (template) => {
-    const newProj = {
-      id: Date.now(),
-      title: template.title,
-      description: template.description,
-      total_budget: template.price,
-      advance_paid: false,
-      advance_amount: template.price * 0.3,
-      status: 'IN_PROGRESS'
-    };
-    setProjects([newProj, ...projects]);
-    setActiveView('client');
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
   };
 
   const handleAdminRespondRequest = async (reqId, proposedPrice, predictedDate, action) => {
@@ -318,7 +288,6 @@ function AppShell() {
     }
   };
 
-<<<<<<< HEAD
   const upsertProject = (proj) => {
     if (!proj) return;
     setProjects(prev => prev.map(p => (p.id === proj.id ? { ...p, ...proj } : p)));
@@ -369,38 +338,6 @@ function AppShell() {
   const handleAddTemplate = async (newTmpl) => {
     const created = await apiPost('templates/', newTmpl);
     setTemplates(prev => [created?.id ? created : { ...newTmpl, id: Date.now() }, ...prev]);
-=======
-  const handlePayAdvance = (projectId) => {
-    setProjects(projects.map(p => p.id === projectId ? { ...p, advance_paid: true } : p));
-  };
-
-  const handleCancelProject = (projectId) => {
-    setProjects(projects.map(p => p.id === projectId ? { ...p, status: 'CANCELLED' } : p));
-  };
-
-  const handleEditBudget = (projectId, newBudget) => {
-    setProjects(projects.map(p => p.id === projectId ? { ...p, total_budget: newBudget } : p));
-  };
-
-  const handleAssignTask = (newTask) => {
-    setTasks([{ ...newTask, id: Date.now(), assigned_employee_name: 'Alex Rivera' }, ...tasks]);
-  };
-
-  const handleUpdateTaskStatus = (taskId, newStatus) => {
-    setTasks(tasks.map(t => t.id === taskId ? { ...t, status: newStatus } : t));
-  };
-
-  const handleSubmitDeliverable = (newDeliv) => {
-    setDeliverables([{ ...newDeliv, id: Date.now(), uploaded_by_name: 'Alex Rivera (Frontend)' }, ...deliverables]);
-  };
-
-  const handleApproveCompletion = (projectId) => {
-    setProjects(projects.map(p => p.id === projectId ? { ...p, status: 'COMPLETED' } : p));
-  };
-
-  const handleAddTemplate = (newTmpl) => {
-    setTemplates([{ ...newTmpl, id: Date.now() }, ...templates]);
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
   };
 
   const handleSubmitCustomRequest = async (newReq) => {
@@ -420,7 +357,6 @@ function AppShell() {
     }
   };
 
-<<<<<<< HEAD
   // ----- Chat -----
   const openChatThread = async (thread) => {
     if (!thread) return;
@@ -454,10 +390,6 @@ function AppShell() {
     };
     const saved = await apiPost('chat-messages/', payload);
     if (saved?.id) setChatMessages(prev => prev.map(m => (m.id === optimistic.id ? saved : m)));
-=======
-  const handleSendChatMessage = (msgObj) => {
-    setChatMessages([...chatMessages, msgObj]);
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
   };
 
   return (
@@ -492,24 +424,12 @@ function AppShell() {
               projects={projects}
               tasks={tasks}
               deliverables={deliverables}
-<<<<<<< HEAD
               employees={employees}
-=======
-              employees={[
-                { id: 1, username: 'alex_frontend', profile: { sub_role: 'FRONTEND' } },
-                { id: 2, username: 'sarah_backend', profile: { sub_role: 'BACKEND' } },
-                { id: 3, username: 'david_uiux', profile: { sub_role: 'UIUX' } }
-              ]}
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
               auditLogs={auditLogs}
               onAdminRespondRequest={handleAdminRespondRequest}
               onAssignTask={handleAssignTask}
               onApproveCompletion={handleApproveCompletion}
-<<<<<<< HEAD
               onOpenChat={(req) => openChatThread({ id: req.id, title: req.title, kind: 'request' })}
-=======
-              onOpenChat={(pTitle) => setActiveChatProjectTitle(pTitle)}
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
               onAddTemplateModal={() => setIsAddTemplateOpen(true)}
             />
           )}
@@ -520,11 +440,7 @@ function AppShell() {
               deliverables={deliverables}
               onUpdateTaskStatus={handleUpdateTaskStatus}
               onSubmitDeliverable={handleSubmitDeliverable}
-<<<<<<< HEAD
               onOpenChat={(task) => openChatThread({ id: task.project, title: task.title, kind: 'project' })}
-=======
-              onOpenChat={(pTitle) => setActiveChatProjectTitle(pTitle)}
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
             />
           )}
 
@@ -538,11 +454,7 @@ function AppShell() {
               onCancelProject={handleCancelProject}
               onEditBudget={handleEditBudget}
               onOpenCustomRequestModal={() => setIsCustomRequestOpen(true)}
-<<<<<<< HEAD
               onOpenChat={(project) => openChatThread({ id: project.id, title: project.title, kind: 'project' })}
-=======
-              onOpenChat={(pTitle) => setActiveChatProjectTitle(pTitle)}
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
               onPreviewVideo={(item) => setActiveVideoItem(item)}
             />
           )}
@@ -568,24 +480,14 @@ function AppShell() {
           onOrder={handleOrderTemplate}
         />
 
-<<<<<<< HEAD
         {activeChatThread && (
           <ChatModal
             project={activeChatThread}
-=======
-        {activeChatProjectTitle && (
-          <ChatModal
-            project={{ title: activeChatProjectTitle, id: 1 }}
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
             messages={chatMessages}
             currentUserRole={currentUserRole}
             onSendMessage={handleSendChatMessage}
             onEditBudget={handleEditBudget}
-<<<<<<< HEAD
             onClose={() => { setActiveChatThread(null); setChatMessages([]); }}
-=======
-            onClose={() => setActiveChatProjectTitle(null)}
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
           />
         )}
 
