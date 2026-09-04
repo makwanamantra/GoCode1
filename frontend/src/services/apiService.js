@@ -132,13 +132,10 @@ export function apiPost(endpoint, body) {
   return fetchFromAPI(endpoint, { method: 'POST', body: JSON.stringify(body || {}) });
 }
 
-<<<<<<< HEAD
 export function apiPatch(endpoint, body) {
   return fetchFromAPI(endpoint, { method: 'PATCH', body: JSON.stringify(body || {}) });
 }
 
-=======
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
 /** Throwing POST — use for auth so the UI can show the server's message. */
 export function apiPostStrict(endpoint, body) {
   return apiRequest(endpoint, { method: 'POST', body: JSON.stringify(body || {}) });

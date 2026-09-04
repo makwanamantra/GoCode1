@@ -105,11 +105,7 @@ export default function EmployeeDashboard({
                   </div>
 
                   <button
-<<<<<<< HEAD
                     onClick={() => onOpenChat(task)}
-=======
-                    onClick={() => onOpenChat(task.title)}
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
                     className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-indigo-600"
                     title="Chat with Admin & Client"
                   >

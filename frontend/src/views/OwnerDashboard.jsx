@@ -184,11 +184,7 @@ export default function OwnerDashboard({
 
                 <div className="flex items-center justify-end space-x-2 pt-2">
                   <button
-<<<<<<< HEAD
                     onClick={() => onOpenChat(req)}
-=======
-                    onClick={() => onOpenChat(req.title)}
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
                     className="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold hover:bg-slate-200"
                   >
                     Chat & Negotiate Budget

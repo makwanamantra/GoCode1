@@ -132,11 +132,7 @@ export default function ClientDashboard({
                 {/* 5-Day Cancellation Rule & Chat Actions */}
                 <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
                   <button
-<<<<<<< HEAD
                     onClick={() => onOpenChat(project)}
-=======
-                    onClick={() => onOpenChat(project.title)}
->>>>>>> 6d0e7a91a3a313c6eaf65e02dca23891615345ea
                     className="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold hover:bg-slate-200 flex items-center space-x-1"
                   >
                     <MessageSquare className="w-4 h-4 text-indigo-600" />
